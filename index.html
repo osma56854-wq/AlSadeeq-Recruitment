@@ -134,7 +134,8 @@ body.dark .jobsNotice{background:var(--bg)}
  window.addEventListener('popstate',()=>render(new URLSearchParams(location.search).get('page')||'home',true));
  const initial=new URLSearchParams(location.search).get('page')||'home';render(initial,false);
 })();
-</script>\n<script type="module">
+</script>
+<script type="module">
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 const SUPABASE_URL='https://wdancgegdplikcyxidnl.supabase.co';
 const SUPABASE_KEY='sb_publishable_HJmfBnA6Zj-Yb3BFS4m_3A_g8wfQgvF';
@@ -179,7 +180,7 @@ $('jobAdminForm').addEventListener('submit',async e=>{e.preventDefault();const i
 $('resetJobForm').addEventListener('click',resetJobForm);
 
 // The admin route is intentionally not linked in public navigation. Open with #admin.
-function openAdmin(){ return; /* سيتم تفعيل دخول الإدارة بعد اكتمال الموقع */ }
+function openAdmin(){ const panel=$('adminPanel'); if(!panel)return; panel.style.display='block'; document.body.style.overflow='hidden'; checkSession(); }
 function closeAdmin(){ $('adminPanel').style.display='none';document.body.style.overflow=''; }
 $('closeAdmin').addEventListener('click',closeAdmin);if(location.hash==='#admin')openAdmin();window.addEventListener('hashchange',()=>{if(location.hash==='#admin')openAdmin();else closeAdmin()});
 async function checkSession(){const {data:{session}}=await supabase.auth.getSession();if(session){$('loginBox').classList.add('hidden');$('dashboard').classList.remove('hidden');await loadApplications();await loadSupportRequests();await loadJobs()}else{$('loginBox').classList.remove('hidden');$('dashboard').classList.add('hidden')}}
